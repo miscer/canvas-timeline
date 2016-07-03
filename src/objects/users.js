@@ -1,25 +1,23 @@
-import { getUserHeight } from '../layout/grid';
-import { getUsersTop, getFirstUserTop } from '../layout/timeline';
+import { context as contextSelector } from '../selectors/canvas';
+import { sizeSelector, positionSelector } from '../selectors/timeline/users';
+import { visibleSectionsSelector } from '../selectors/timeline/sections';
 import { render as renderUser } from './user';
 
 const USERS_WIDTH = 65;
+const TOP_PADDING = 10;
 
-export const render = (env) => {
-  const {ctx, size} = env;
-  const height = size.height - getUsersTop();
+export const render = (state) => {
+  const ctx = contextSelector(state);
+  const {height} = sizeSelector(state);
+  const {top} = positionSelector(state);
+  const sections = visibleSectionsSelector(state);
+  const scroll = state.scroll;
 
   ctx.fillStyle = '#f8f8f8';
-  ctx.fillRect(0, getUsersTop(), USERS_WIDTH, height);
+  ctx.fillRect(0, top, USERS_WIDTH, height);
 
-  renderContent(env);
-};
-
-const renderContent = (env) => {
-  const {ctx, scroll, timeline} = env;
-  let offset = getFirstUserTop() - scroll.y;
-
-  for (const row of timeline) {
-    renderUser(env, row.user, 10, offset);
-    offset += getUserHeight(row);
+  for (const {offset, user} of sections) {
+    const y = offset - scroll.y + top + TOP_PADDING;
+    renderUser(state, user, 10, y);
   }
 };

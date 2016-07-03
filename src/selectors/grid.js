@@ -1,4 +1,21 @@
-export const calculate = (tasks) => {
+import { createSelector } from 'reselect';
+
+export const gridSelector = createSelector(
+  state => state.tasks,
+  state => state.users,
+  (tasks, users) =>
+    users
+      .map(user => ({
+        user: user,
+        tasks: tasks.filter(task => task.user_id === user.id)
+      }))
+      .map(section => ({
+        ...section,
+        rows: createRows(section.tasks),
+      }))
+);
+
+export const createRows = (tasks) => {
   const rows = [];
 
   for (const task of tasks) {
