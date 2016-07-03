@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+}
+
+.app {
+  position: relative;
+}
+
+.logo {
+  width: 65px;
+  height: 80px;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  background-color: #1dbf11;
+  background-image: url(images/logo.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50px 50px;
+}
