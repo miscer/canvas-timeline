@@ -10,25 +10,18 @@ export const getSectionHeight = ({rows}) => {
 
 export const allSectionsSelector = createSelector(
   gridSelector,
-  (sections) =>
-    sections.reduce((acc, section) => {
-      const height = getSectionHeight(section);
+  (sections) => {
+    const result = [];
+    let offset = 0;
 
-      return {
-        items: [
-          ...acc.items,
-          {
-            ...section,
-            offset: acc.offset,
-            height: height,
-          }
-        ],
-        offset: acc.offset + height,
-      };
-    }, {
-      items: [],
-      offset: 0,
-    }).items
+    for (const section of sections) {
+      const height = getSectionHeight(section);
+      result.push({...section, offset, height});
+      offset += height;
+    }
+
+    return result;
+  }
 );
 
 export const visibleSectionsSelector = createSelector(
