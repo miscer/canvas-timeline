@@ -8,14 +8,20 @@ export const visibleColumnsSelector = createSelector(
   state => state.scroll,
   state => state.size,
   (timeframe, scroll, size) => {
-    const dayOffset = Math.floor(scroll.x / COLUMN_WIDTH);
+    const scrollOffset = Math.floor(scroll.x / COLUMN_WIDTH);
     const numColumns = Math.ceil(size.width / COLUMN_WIDTH);
     const columns = [];
 
     for (let i = 0; i < numColumns; i++) {
+      const columnOffset = scrollOffset + i;
+      const date = moment(timeframe.date).add(columnOffset, 'days');
+      const weekday = date.isoWeekday();
+
       columns.push({
-        date: moment(timeframe.date).add(dayOffset + i, 'days'),
-        offset: (dayOffset + i) * COLUMN_WIDTH
+        date: date,
+        width: COLUMN_WIDTH,
+        offset: columnOffset * COLUMN_WIDTH,
+        weekend: weekday == 6 || weekday == 7,
       });
     }
 
