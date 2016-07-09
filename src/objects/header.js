@@ -27,7 +27,7 @@ const renderDay = (state, date, x, y) => {
   ctx.save();
 
   ctx.fillStyle = '#000';
-  ctx.font = '12px sans-serif';
+  ctx.font = '12px Avenir';
   ctx.textAlign = 'center';
 
   ctx.fillText(

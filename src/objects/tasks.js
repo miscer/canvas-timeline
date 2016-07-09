@@ -36,13 +36,13 @@ const renderTask = (state, task, width, x, y) => {
   ctx.fillRect(x, y, width - 2, TASK_HEIGHT);
 
   ctx.fillStyle = '#000';
-  ctx.font = 'bold 14px sans-serif';
+  ctx.font = 'bold 14px Avenir';
 
   ctx.fillText(task.name, x + 5, y + 5);
 
   if (task.project != null) {
     ctx.fillStyle = 'rgba(34, 34, 34, 0.5)';
-    ctx.font = '14px sans-serif';
+    ctx.font = '14px Avenir';
 
     ctx.fillText(task.project.name, x + 5, y + 22);
   }

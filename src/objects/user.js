@@ -9,12 +9,12 @@ const RECT_HEIGHT = 43;
 
 export const render = (state, user, x, y) => {
   const ctx = context(state);
-  
+
   ctx.save();
 
   ctx.fillStyle = '#bebebe';
   ctx.textAlign = 'center';
-  ctx.font = '12px sans-serif';
+  ctx.font = '12px Avenir';
 
   ctx.fillText(getFirstName(user), x + RECT_WIDTH / 2, y + RECT_HEIGHT + 15);
 
@@ -22,7 +22,7 @@ export const render = (state, user, x, y) => {
   ctx.fillStyle = getColorFromId(user.color_id);
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.font = 'bold 19px sans-serif';
+  ctx.font = 'bold 19px Avenir';
 
   ctx.fillText(
     getInitials(user),
