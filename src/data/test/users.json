@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "initials": "JD",
+    "color_id": 2
+  },
+  {
+    "id": 2,
+    "name": "Eve Brown",
+    "initials": "EB",
+    "color_id": 10
+  }
+]

@@ -44,7 +44,7 @@ const isRowFree = (row, t1) => {
   return true;
 }
 
-const hasOverlap = (t1, t2) => (
-  (t1.start_date > t2.end_date) ||
-  (t1.end_date < t2.start_date)
+const hasOverlap = (t1, t2) => !(
+  (t1.end_date < t2.start_date) ||
+  (t1.start_date > t2.end_date)
 );

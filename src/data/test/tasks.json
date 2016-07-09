@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "start_date": "2016-07-06",
+    "end_date": "2016-07-08",
+    "name": "First task",
+    "user_id": 1,
+    "color_id": 14
+  },
+  {
+    "id": 2,
+    "start_date": "2016-07-02",
+    "end_date": "2016-07-08",
+    "name": "Second task",
+    "user_id": 2,
+    "color_id": 7
+  },
+  {
+    "id": 3,
+    "start_date": "2016-07-08",
+    "end_date": "2016-07-10",
+    "name": "Third task",
+    "user_id": 1,
+    "color_id": 14
+  }
+]
