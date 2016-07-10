@@ -1,4 +1,4 @@
-export const scroll = (dx, dy) => ({
+export const scroll = (x, y) => ({
   type: 'SCROLL',
-  dx, dy
+  x, y
 });

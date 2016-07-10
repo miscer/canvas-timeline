@@ -8,8 +8,8 @@ export default (state = initialState, action) => {
     case 'SCROLL':
       return {
         ...state,
-        x: state.x + action.dx,
-        y: state.y + action.dy
+        x: action.x,
+        y: action.y
       };
 
     default:

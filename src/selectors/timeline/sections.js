@@ -37,4 +37,12 @@ export const visibleSectionsSelector = createSelector(
       section.offset + section.height > top
     ));
   }
-)
+);
+
+export const timelineHeight = createSelector(
+  allSectionsSelector,
+  sections => sections.reduce(
+    (height, section) => height + section.height,
+    0
+  )
+);
