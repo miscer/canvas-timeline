@@ -29,8 +29,8 @@ export const render = (state) => {
     }
 
     ctx.beginPath();
-    ctx.moveTo(x + 0.25, y1 + 0.25);
-    ctx.lineTo(x + 0.25, y2 + 0.25);
+    ctx.moveTo(x + 0.25, y1);
+    ctx.lineTo(x + 0.25, y2);
     ctx.stroke();
   }
 
@@ -40,8 +40,8 @@ export const render = (state) => {
     const y = section.offset + section.height - scroll.y + top;
 
     ctx.beginPath();
-    ctx.moveTo(x1 + 0.25, y + 0.25);
-    ctx.lineTo(x2 + 0.25, y + 0.25);
+    ctx.moveTo(x1, y + 0.25);
+    ctx.lineTo(x2, y + 0.25);
     ctx.stroke();
   }
 

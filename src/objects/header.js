@@ -47,5 +47,15 @@ const renderDay = (state, column, x, y) => {
     ctx.fillRect(x, y, column.width, HEADER_HEIGHT);
   }
 
+  if (column.date.isoWeekday() == 1) {
+    ctx.strokeStyle = '#ccc';
+    ctx.lineWidth = 0.5;
+
+    ctx.beginPath();
+    ctx.moveTo(x + 0.25, y);
+    ctx.lineTo(x + 0.25, y + HEADER_HEIGHT);
+    ctx.stroke();
+  }
+
   ctx.restore();
 };
