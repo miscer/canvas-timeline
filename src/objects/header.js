@@ -15,13 +15,13 @@ export const render = (state) => {
   ctx.fillStyle = '#f8f8f8';
   ctx.fillRect(left, 0, width, HEADER_HEIGHT);
 
-  for (const {date, offset} of columns) {
-    const x = offset + left - scroll.x;
-    renderDay(state, date, x, 0);
+  for (const column of columns) {
+    const x = column.offset + left - scroll.x;
+    renderDay(state, column, x, 0);
   }
 };
 
-const renderDay = (state, date, x, y) => {
+const renderDay = (state, column, x, y) => {
   const ctx = contextSelector(state);
 
   ctx.save();
@@ -31,16 +31,21 @@ const renderDay = (state, date, x, y) => {
   ctx.textAlign = 'center';
 
   ctx.fillText(
-    date.format('dd'),
+    column.date.format('dd'),
     x + 22,
     y + 50
   );
 
   ctx.fillText(
-    date.format('D'),
+    column.date.format('D'),
     x + 22,
     y + 65
   );
+
+  if (column.today) {
+    ctx.fillStyle = 'rgba(0, 196, 255, 0.1)';
+    ctx.fillRect(x, y, column.width, HEADER_HEIGHT);
+  }
 
   ctx.restore();
 };

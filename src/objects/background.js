@@ -20,7 +20,10 @@ export const render = (state) => {
     const y1 = top;
     const y2 = top + height;
 
-    if (column.weekend) {
+    if (column.today) {
+      ctx.fillStyle = 'rgba(0, 196, 255, 0.1)';
+      ctx.fillRect(x, y1, column.width, height);
+    } else if (column.weekend) {
       ctx.fillStyle = '#f5f5f5';
       ctx.fillRect(x, y1, column.width, height);
     }

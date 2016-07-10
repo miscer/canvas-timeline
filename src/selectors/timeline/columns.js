@@ -10,11 +10,12 @@ export const visibleColumnsSelector = createSelector(
   (timeframe, scroll, size) => {
     const scrollOffset = Math.floor(scroll.x / COLUMN_WIDTH);
     const numColumns = Math.ceil(size.width / COLUMN_WIDTH);
+    const today = moment.utc();
     const columns = [];
 
     for (let i = 0; i < numColumns; i++) {
       const columnOffset = scrollOffset + i;
-      const date = moment(timeframe.date).add(columnOffset, 'days');
+      const date = moment.utc(timeframe.date).add(columnOffset, 'days');
       const weekday = date.isoWeekday();
 
       columns.push({
@@ -22,6 +23,7 @@ export const visibleColumnsSelector = createSelector(
         width: COLUMN_WIDTH,
         offset: columnOffset * COLUMN_WIDTH,
         weekend: weekday == 6 || weekday == 7,
+        today: date.isSame(today, 'day'),
       });
     }
 
