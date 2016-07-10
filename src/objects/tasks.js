@@ -78,11 +78,21 @@ const prepareText = (text, maxWidth, color, font) => {
   ctx.fillText(text, 0, 0);
 
   ctx.clearRect(maxWidth, 0, width - maxWidth, height);
+
+  const gx = maxWidth - 10;
+  const gradient = ctx.createLinearGradient(gx, 0, gx + 10, 0);
+  gradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
+  gradient.addColorStop(1, 'rgba(0, 0, 0, 1)');
+
+  ctx.fillStyle = gradient;
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.fillRect(gx, 0, 10, height);
+
+  ctx.globalCompositeOperation = 'source-over';
 };
 
 const renderText = (ctx, x, y) => {
   const canvas = TEXT_CANVAS;
-
 
   ctx.drawImage(
     canvas,

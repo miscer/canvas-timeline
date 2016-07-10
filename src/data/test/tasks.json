@@ -22,5 +22,13 @@
     "name": "Third task",
     "user_id": 1,
     "color_id": 14
+  },
+  {
+    "id": 3,
+    "start_date": "2016-07-10",
+    "end_date": "2016-07-10",
+    "name": "Fourth task",
+    "user_id": 1,
+    "color_id": 2
   }
 ]
