@@ -28,17 +28,20 @@ const renderDay = (state, column, x, y) => {
 
   ctx.fillStyle = '#000';
   ctx.font = '12px Avenir';
+  ctx.strokeStyle = '#ccc';
+  ctx.lineWidth = 0.5;
+
   ctx.textAlign = 'center';
 
   ctx.fillText(
     column.date.format('dd'),
-    x + 22,
+    x + column.width / 2,
     y + 50
   );
 
   ctx.fillText(
     column.date.format('D'),
-    x + 22,
+    x + column.width / 2,
     y + 65
   );
 
@@ -48,13 +51,18 @@ const renderDay = (state, column, x, y) => {
   }
 
   if (column.date.isoWeekday() == 1) {
-    ctx.strokeStyle = '#ccc';
-    ctx.lineWidth = 0.5;
-
     ctx.beginPath();
     ctx.moveTo(x + 0.25, y);
     ctx.lineTo(x + 0.25, y + HEADER_HEIGHT);
     ctx.stroke();
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#a7a7a7';
+    ctx.fillText(
+      column.date.format('[W]W'),
+      x + 10,
+      y + 20
+    );
   }
 
   ctx.restore();
