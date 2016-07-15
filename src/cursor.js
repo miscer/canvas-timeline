@@ -1,5 +1,8 @@
 import { setPosition } from './actions/cursor';
-import { cursorSelector } from './selectors/cursor';
+import {
+  cursorSelector,
+  hoverTaskSelector
+} from './selectors/cursor';
 
 export default (store) => {
   const state = store.getState();
@@ -9,6 +12,12 @@ export default (store) => {
     store.dispatch(
       setPosition(event.clientX, event.clientY)
     );
+  });
+
+  element.addEventListener('click', event => {
+    const state = store.getState();
+    const task = hoverTaskSelector(state);
+    alert(`Clicked on task "${task.name}"`);
   });
 
   let cursor = cursorSelector(state);

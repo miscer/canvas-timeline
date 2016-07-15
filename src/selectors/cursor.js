@@ -14,16 +14,16 @@ const positionSelector = createSelector(
   })
 );
 
-export const hoverTask = createSelector(
+export const hoverTaskSelector = createSelector(
   positionSelector,
   visibleTasksSelector,
   ({x, y}, tasks) => {
-    for (const task of tasks) {
-      if (x >= task.x &&
-          x < task.x + task.width &&
-          y >= task.y &&
-          y < task.y + task.height) {
-        return task;
+    for (const item of tasks) {
+      if (x >= item.x &&
+          x < item.x + item.width &&
+          y >= item.y &&
+          y < item.y + item.height) {
+        return item.task;
       }
     }
 
@@ -32,7 +32,7 @@ export const hoverTask = createSelector(
 );
 
 export const cursorSelector = createSelector(
-  hoverTask,
+  hoverTaskSelector,
   (task) => {
     if (task) {
       return 'pointer';
