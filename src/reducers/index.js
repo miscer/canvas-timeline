@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import canvas from './canvas';
+import cursor from './cursor';
 import fonts from './fonts';
 import scroll from './scroll';
 import size from './size';
@@ -9,6 +10,7 @@ import users from './users';
 
 export default combineReducers({
   canvas,
+  cursor,
   fonts,
   scroll,
   size,
