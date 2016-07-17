@@ -28,22 +28,43 @@ const createTextCanvas = (width) => {
   return [element, context];
 }
 
-const setCanvasTextProps = (context) => {
+const setCanvasTextProps = (context, font, color) => {
   context.textBaseline = 'top';
+  context.font = font;
+  context.fillStyle = color;
 };
+
+const setCanvasTextPropsForTitle = (context) => {
+  setCanvasTextProps(context, TITLE_FONT, TITLE_COLOR);
+};
+
+const setCanvasTextPropsForProject = (context) => {
+  setCanvasTextProps(context, PROJECT_FONT, PROJECT_COLOR);
+};
+
+const measureTaskTextWidth = (context, taskTitle, projectName) => {
+  setCanvasTextPropsForTitle(context);
+  const taskTitleWidth = !isEmpty(taskTitle) ?
+    context.measureText(taskTitle).width : 0;
+
+  setCanvasTextPropsForProject(context);
+  const projectNameWidth = !isEmpty(projectName) ?
+    context.measureText(projectName).width : 0;
+
+  return Math.max(taskTitleWidth, projectNameWidth);
+};
+
 
 const fillTaskTitle = (context, taskTitle) => {
   if (!isEmpty(taskTitle)) {
-    context.font = TITLE_FONT;
-    context.fillStyle = TITLE_COLOR;
+    setCanvasTextPropsForTitle(context);
     context.fillText(taskTitle, 0, 0);
   }
 };
 
 const fillProjectName = (context, projectName) => {
   if (!isEmpty(projectName)) {
-    context.font = PROJECT_FONT;
-    context.fillStyle = PROJECT_COLOR;
+    setCanvasTextPropsForProject(context);
     context.fillText(projectName, 0, LINE_HEIGHT);
   }
 };
@@ -69,13 +90,19 @@ const cropOverflowingText = (context, maxWidth) => {
 
 export const prepare = (taskTitle, projectName, maxWidth) => {
   const [canvas, context] = createTextCanvas(maxWidth);
+  const textWidth = measureTaskTextWidth(context, taskTitle, projectName);
 
-  setCanvasTextProps(context);
   fillTaskTitle(context, taskTitle);
   fillProjectName(context, projectName);
-  cropOverflowingText(context, maxWidth);
 
-  return canvas;
+  if (textWidth > maxWidth) {
+    cropOverflowingText(context, maxWidth);
+  }
+
+  return {
+    taskText: canvas,
+    textWidth: Math.min(textWidth, maxWidth)
+  };
 };
 
 export const render = (canvas, context, x, y) => {

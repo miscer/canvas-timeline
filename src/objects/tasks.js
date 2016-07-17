@@ -1,3 +1,4 @@
+import clamp from 'lodash/clamp';
 import { context as contextSelector } from '../selectors/canvas';
 import {
   positionSelector,
@@ -34,17 +35,25 @@ export const render = (state) => {
 
 const renderTask = (state, task, width, x, y) => {
   const ctx = contextSelector(state);
+  const {left} = positionSelector(state);
 
   ctx.fillStyle = getColorFromId(task.color_id);
   ctx.fillRect(x, y, width - 2, TASK_HEIGHT);
 
-  const taskText = prepareTaskText(
+  const maxTextWidth = width - 12;
+  const {taskText, textWidth} = prepareTaskText(
     task.name,
     task.project && task.project.name,
-    width - 12
+    maxTextWidth
   );
 
-  renderTaskText(taskText, ctx, x + 5, y + 5);
+  const textX = clamp(
+    left + 5,
+    x + 5,
+    x + width - textWidth - 12
+  );
+
+  renderTaskText(taskText, ctx, textX, y + 5);
 
   ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
   ctx.fillRect(x, y + 41, width - 2, 2);
