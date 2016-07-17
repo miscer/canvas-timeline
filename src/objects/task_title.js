@@ -1,4 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
+import memoize from 'lodash/memoize';
 
 const TITLE_FONT = 'bold 14px Avenir';
 const PROJECT_FONT = '14px Avenir';
@@ -88,7 +89,12 @@ const cropOverflowingText = (context, maxWidth) => {
   context.fillRect(gradientX, 0, GRADIENT_WIDTH, TASK_HEIGHT);
 };
 
-export const prepare = (taskTitle, projectName, maxWidth) => {
+export const prepare = (
+  taskTitle,
+  projectName,
+  maxWidth,
+  fontsLoaded
+) => {
   const [canvas, context] = createTextCanvas(maxWidth);
   const textWidth = measureTaskTextWidth(context, taskTitle, projectName);
 
@@ -104,6 +110,9 @@ export const prepare = (taskTitle, projectName, maxWidth) => {
     textWidth: Math.min(textWidth, maxWidth)
   };
 };
+
+const getCacheKey = (...args) => args.join('.');
+export const efficientPrepare = memoize(prepare, getCacheKey);
 
 export const render = (canvas, context, x, y) => {
   context.drawImage(
