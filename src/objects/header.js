@@ -23,6 +23,7 @@ export const render = (state) => {
 
 const renderDay = (state, column, x, y) => {
   const ctx = contextSelector(state);
+  const date = moment.utc(column.date);
 
   ctx.save();
 
@@ -34,13 +35,13 @@ const renderDay = (state, column, x, y) => {
   ctx.textAlign = 'center';
 
   ctx.fillText(
-    column.date.format('dd'),
+    date.format('dd'),
     x + column.width / 2,
     y + 50
   );
 
   ctx.fillText(
-    column.date.format('D'),
+    date.format('D'),
     x + column.width / 2,
     y + 65
   );
@@ -50,7 +51,7 @@ const renderDay = (state, column, x, y) => {
     ctx.fillRect(x, y, column.width, HEADER_HEIGHT);
   }
 
-  if (column.date.isoWeekday() == 1) {
+  if (date.isoWeekday() == 1) {
     ctx.beginPath();
     ctx.moveTo(x + 0.25, y);
     ctx.lineTo(x + 0.25, y + HEADER_HEIGHT);
@@ -59,7 +60,7 @@ const renderDay = (state, column, x, y) => {
     ctx.textAlign = 'left';
     ctx.fillStyle = '#a7a7a7';
     ctx.fillText(
-      column.date.format('[W]W'),
+      date.format('[W]W'),
       x + 10,
       y + 20
     );

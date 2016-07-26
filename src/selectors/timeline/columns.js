@@ -1,4 +1,4 @@
-import moment from 'moment';
+import instadate from 'instadate';
 import { createSelector } from 'reselect';
 
 const COLUMN_WIDTH = 45;
@@ -10,20 +10,21 @@ export const visibleColumnsSelector = createSelector(
   (timeframe, scroll, size) => {
     const scrollOffset = Math.floor(scroll.x / COLUMN_WIDTH);
     const numColumns = Math.ceil(size.width / COLUMN_WIDTH);
-    const today = moment.utc();
     const columns = [];
+
+    const pivotDate = new Date(timeframe.date);
+    const todayDate = new Date();
 
     for (let i = 0; i < numColumns; i++) {
       const columnOffset = scrollOffset + i;
-      const date = moment.utc(timeframe.date).add(columnOffset, 'days');
-      const weekday = date.isoWeekday();
+      const date = instadate.addDays(pivotDate, columnOffset);
 
       columns.push({
         date: date,
         width: COLUMN_WIDTH,
         offset: columnOffset * COLUMN_WIDTH,
-        weekend: weekday == 6 || weekday == 7,
-        today: date.isSame(today, 'day'),
+        weekend: instadate.isWeekendDate(date),
+        today: instadate.isSameDay(date, todayDate),
       });
     }
 

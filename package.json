@@ -22,6 +22,7 @@
   "dependencies": {
     "autoscale-canvas": "0.0.3",
     "css-loader": "^0.23.1",
+    "instadate": "^0.3.0",
     "lodash": "^4.13.1",
     "lorem-ipsum": "^1.0.3",
     "moment": "^2.13.0",
