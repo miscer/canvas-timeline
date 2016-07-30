@@ -4,6 +4,7 @@ import { createStore } from 'redux';
 
 import canvas from './canvas';
 import scroll from './scroll';
+import touch from './touch';
 import cursor from './cursor';
 import size from './window_size';
 import fonts from './fonts';
@@ -16,6 +17,7 @@ const store = createStore(reducer, {users, tasks});
 size(store);
 canvas(store);
 scroll(store);
+touch(store);
 cursor(store);
 render(store);
 fonts(store);
