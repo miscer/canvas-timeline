@@ -1,11 +1,11 @@
 import moment from 'moment';
 import { createSelector } from 'reselect';
+import { columnWidthSelector } from './columns';
 import { gridSelector } from '../grid';
 
 const LOGO_HEIGHT = 80;
 const LOGO_WIDTH = 65;
 const ROW_HEIGHT = 45;
-const COLUMN_WIDTH = 45;
 const SECTION_PADDING = 25;
 
 export const sizeSelector = createSelector(
@@ -23,8 +23,9 @@ export const positionSelector = () => ({
 
 export const allTasksSelector = createSelector(
   gridSelector,
+  columnWidthSelector,
   state => state.timeframe,
-  (grid, timeframe) => {
+  (grid, columnWidth, timeframe) => {
     const date = moment.utc(timeframe.date);
 
     const tasks = [];
@@ -41,8 +42,8 @@ export const allTasksSelector = createSelector(
 
           tasks.push({
             task, y,
-            x: offset * COLUMN_WIDTH,
-            width: width * COLUMN_WIDTH,
+            x: offset * columnWidth,
+            width: width * columnWidth,
             height: ROW_HEIGHT,
           });
         }

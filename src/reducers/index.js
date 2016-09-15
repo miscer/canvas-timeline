@@ -7,6 +7,7 @@ import size from './size';
 import tasks from './tasks';
 import timeframe from './timeframe';
 import users from './users';
+import zoom from './zoom';
 
 export default combineReducers({
   canvas,
@@ -16,5 +17,6 @@ export default combineReducers({
   size,
   tasks,
   timeframe,
-  users
+  users,
+  zoom
 });

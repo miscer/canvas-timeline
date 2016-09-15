@@ -3,13 +3,19 @@ import { createSelector } from 'reselect';
 
 const COLUMN_WIDTH = 45;
 
+export const columnWidthSelector = createSelector(
+  state => state.zoom.ratio,
+  ratio => COLUMN_WIDTH * ratio
+);
+
 export const visibleColumnsSelector = createSelector(
   state => state.timeframe,
   state => state.scroll,
   state => state.size,
-  (timeframe, scroll, size) => {
-    const scrollOffset = Math.floor(scroll.x / COLUMN_WIDTH);
-    const numColumns = Math.ceil(size.width / COLUMN_WIDTH);
+  columnWidthSelector,
+  (timeframe, scroll, size, columnWidth) => {
+    const scrollOffset = Math.floor(scroll.x / columnWidth);
+    const numColumns = Math.ceil(size.width / columnWidth);
     const columns = [];
 
     const pivotDate = new Date(timeframe.date);
@@ -21,8 +27,8 @@ export const visibleColumnsSelector = createSelector(
 
       columns.push({
         date: date,
-        width: COLUMN_WIDTH,
-        offset: columnOffset * COLUMN_WIDTH,
+        width: columnWidth,
+        offset: columnOffset * columnWidth,
         weekend: instadate.isWeekendDate(date),
         today: instadate.isSameDay(date, todayDate),
       });
