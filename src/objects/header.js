@@ -4,6 +4,7 @@ import { visibleColumnsSelector } from '../selectors/timeline/columns';
 import { positionSelector, sizeSelector } from '../selectors/timeline/header';
 
 const HEADER_HEIGHT = 80;
+const PIXEL_RATIO = window.devicePixelRatio;
 
 export const render = (state) => {
   const ctx = contextSelector(state);
@@ -12,8 +13,16 @@ export const render = (state) => {
   const columns = visibleColumnsSelector(state);
   const scroll = state.scroll;
 
+  ctx.save();
+
+  ctx.shadowBlur = 7 * PIXEL_RATIO;
+  ctx.shadowColor = 'rgba(0,0,0,.12)';
+  ctx.shadowOffsetY = 2 * PIXEL_RATIO;
+
   ctx.fillStyle = '#f8f8f8';
   ctx.fillRect(left, 0, width, HEADER_HEIGHT);
+
+  ctx.restore();
 
   for (const column of columns) {
     const x = column.offset + left - scroll.x;
